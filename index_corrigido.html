@@ -1,0 +1,408 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Eu te amo</title>
+  <style>
+
+    body {
+      min-height: 100dvh;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: black;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+      overflow-y: auto;
+      color: white;
+      text-align: center;
+    }
+
+    .spotify-bar {
+      background-color: #1c1c1c;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 15px;
+      font-size: 14px;
+    }
+
+    .spotify-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .spotify-info img {
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+    }
+
+    .spotify-details {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+
+    .spotify-details .title {
+      font-weight: bold;
+    }
+
+    .play-button {
+  all: unset;
+  background-color: #333;
+  color: #ff4da6;
+  font-size: 18px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  background-color: #333;
+  border: none;
+  color: #ff4da6;
+  font-size: 18px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+      background-color: #333333;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-size: 16px;
+      padding: 5px 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .play-button:hover {
+      background-color: #e03e91;
+    }
+
+    .main-image {
+      width: 90%;
+      max-width: 350px;
+      margin: 30px auto 10px;
+      display: block;
+      border-radius: 10px;
+    }
+
+    .texto {
+      font-size: 22px;
+      font-weight: bold;
+      color: white;
+      text-shadow: 0 0 1px #ff4da6, 0 0 2px #ff4da6;
+      margin-top: 10px;
+    }
+
+    .contador {
+      font-size: 16px;
+      margin-top: 5px;
+      color: white;
+      text-shadow: 0 0 2px #ff4da6;
+    }
+
+    .coracao {
+      position: fixed;
+      top: -50px;
+      font-size: 24px;
+      animation: cair linear infinite;
+      color: white;
+      pointer-events: none;
+    }
+
+    @keyframes cair {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(110vh); opacity: 0; }
+    }
+  
+    @keyframes pulse {
+      0% { transform: scale(1); box-shadow: 0 0 10px #ff4da6; }
+      50% { transform: scale(1.05); box-shadow: 0 0 20px #ff4da6; }
+      100% { transform: scale(1); box-shadow: 0 0 10px #ff4da6; }
+    }
+    .start-button {
+      animation: pulse 2s infinite;
+    }
+    .subtexto {
+      font-size: 14px;
+      color: #cccccc;
+      margin-top: 4px;
+      font-style: italic;
+    }
+    .assinatura {
+      margin-top: 25px;
+      font-size: 14px;
+      color: #888;
+    }
+    @media (max-width: 600px) {
+      .main-image { max-width: 90%; }
+      .spotify-bar { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .spotify-icons { align-self: flex-end; }
+    }
+    </style>
+<style>
+.heart {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background: #e63946;
+  transform: rotate(45deg);
+  animation: float 1.5s ease-out forwards;
+  pointer-events: none;
+  z-index: 9999;
+}
+.heart::before,
+.heart::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background: #e63946;
+  border-radius: 50%;
+}
+.heart::before {
+  top: -7px;
+  left: 0;
+}
+.heart::after {
+  left: -7px;
+  top: 0;
+}
+@keyframes float {
+  to {
+    transform: translateY(-60px) scale(0.5) rotate(45deg);
+    opacity: 0;
+  }
+}
+</style>
+
+<style>
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 2s ease-in forwards;
+  animation-delay: 1.5s;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+</style>
+
+
+<style>
+.modal-fade {
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.6);
+  animation: fadeInModal 1s;
+}
+
+.modal-content {
+  background-color: #fff8e7;
+  margin: 10% auto;
+  padding: 30px;
+  border-radius: 15px;
+  width: 80%;
+  max-width: 600px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  font-family: 'Arial', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333;
+  position: relative;
+}
+
+.close-btn {
+  color: #a00;
+  font-size: 28px;
+  font-weight: bold;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  cursor: pointer;
+}
+
+@keyframes fadeInModal {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+</style>
+
+
+<style>
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+#carta-container img {
+  animation: heartbeat 2s infinite;
+}
+</style>
+
+</head>
+
+<body>
+  <!-- Primeira Tela -->
+  <div class="screen screen1" id="screen1" style="background-color:black; position: absolute; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 2; transition: opacity 1s ease;">
+    <div style="background-color: transparent; padding: 15px 25px; border-radius: 50px; font-size: 18px; font-weight: bold; color: #ffffff; text-shadow: 0 0 1px #ff4da6, 0 0 2px #ff4da6; border: 2px solid #ff4da6; cursor: pointer; box-shadow: 0 0 10px #ff4da6; transition: transform 0.2s ease, box-shadow 0.3s ease;" class="start-button" onclick="goToSecondScreen()">Clique aqui, meu amor ❤️</div>
+  </div>
+
+
+  <div class="screen screen2" id="screen2" style="opacity: 0; transition: opacity 1s ease;"><div class="spotify-bar">
+    <div class="spotify-info">
+      <img src="album.jpg" alt="Album"/>
+      <div class="spotify-details">
+        <span class="title">Walking After You</span>
+        <span>Foo Fighters</span>
+      </div>
+    </div>
+    <button class="play-button" onclick="toggleAudio()" id="playBtn">⏸️</button>
+  </div>
+
+  <audio id="audio" loop>
+    <source src="music.mp3" type="audio/mpeg" />
+  </audio>
+
+  <img src="foto.jpg" alt="Foto dela" class="main-image" />
+  <div class="texto" style="color: white; text-shadow: 0 0 3px #ff4da6, 0 0 5px #ff4da6;">Eu te amo muitão há:</div>
+  <div class="contador" id="contador"></div>
+<div class="subtexto">Contando os momentos com você...</div>
+<div class="assinatura">Com todo o meu amor, seu eterno apaixonado.</div>
+<div id="carta-container" class="fade-in" style="text-align: center; margin-top: 20px;">
+    <img src="cartinha.png" alt="Cartinha de amor" style="width: 80px; height: auto; cursor: pointer;">
+</div>
+
+
+  <script>
+    const inicio = new Date("2025-01-17T00:00:00").getTime();
+    const audio = document.getElementById("audio");
+    const btn = document.getElementById("playBtn");
+
+    function atualizarContador() {
+      const agora = new Date().getTime();
+      const diff = agora - inicio;
+      const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutos = Math.floor((diff / (1000 * 60)) % 60);
+      const segundos = Math.floor((diff / 1000) % 60);
+      document.getElementById("contador").innerText =
+        `${dias} dias, ${horas} horas, ${minutos} minutos, ${segundos} segundos`;
+    }
+
+    function toggleAudio() {
+      if (audio.paused) {
+        audio.play();
+        btn.innerText = "⏸️";
+      } else {
+        audio.pause();
+        btn.innerText = "▶️";
+      }
+    }
+
+    function criarCoracao() {
+      const coracao = document.createElement("div");
+      coracao.classList.add("coracao");
+      coracao.innerText = "❤️";
+      coracao.style.left = Math.random() * 100 + "vw";
+      coracao.style.fontSize = (20 + Math.random() * 20) + "px";
+      coracao.style.opacity = (0.4 + Math.random() * 0.6).toFixed(2);
+      coracao.style.animationDuration = (5 + Math.random() * 5) + "s";
+      document.body.appendChild(coracao);
+      setTimeout(() => coracao.remove(), 10000);
+    }
+
+    setInterval(criarCoracao, 100);
+    setInterval(atualizarContador, 1000);
+    atualizarContador();
+  
+    function goToSecondScreen() {
+      const screen1 = document.getElementById("screen1");
+      const screen2 = document.getElementById("screen2");
+
+      screen1.style.opacity = "0";
+      setTimeout(() => {
+        screen1.style.display = "none";
+        screen2.style.opacity = "1";
+      
+      audio.play();
+      btn.innerText = "⏸️";
+
+      }, 1000);
+    }
+
+</script></div>
+
+<script>
+let lastHeartTime = 0;
+document.addEventListener('mousemove', function(e) {
+  const now = Date.now();
+  if (now - lastHeartTime < 100) return;
+  lastHeartTime = now;
+
+  const heart = document.createElement('div');
+  heart.className = 'heart';
+  heart.style.left = e.pageX + 'px';
+  heart.style.top = e.pageY + 'px';
+  document.body.appendChild(heart);
+  setTimeout(() => { heart.remove(); }, 1500);
+});
+</script>
+
+
+<!-- Modal da cartinha -->
+<div id="cartaModal" class="modal-fade" style="display:none;">
+  <div class="modal-content">
+    <span class="close-btn">&times;</span>
+    <p>
+      Hoje, mais do que nunca, eu sinto o quanto é especial te ter na minha vida. Mesmo longe fisicamente, você está presente em tudo: no meu coração, nos meus pensamentos e em cada plano pensado. Você é aquela parte boa dos meus dias, a lembrança constante de que o amor existe e que vale a pena esperar.<br><br>
+      Tem sido mágico viver esse amor que atravessa quilômetros e se mantém firme na espera. Às vezes, dá saudade demais, eu sei... mas essa saudade só prova o quanto você é importante pra mim. Ela me lembra que o que temos não é comum, não é raso, não é passageiro. É profundo e cresce mesmo na ausência.<br><br>
+      Conto os dias para o nosso encontro em agosto. Já há um lugar reservado no meu peito como um dos dias mais marcantes da minha vida. Até lá, sigo te amando daqui, cuidando do que a gente construiu com carinho. Imagino teu abraço, o calor do teu sorriso, o som da tua voz dizendo meu nome de perto. Esses pensamentos me sustentam e me fazem querer ser ainda melhor pra você.<br><br>
+      Você é a minha escolha diária, mesmo à distância, e vai ser ainda mais quando eu puder te olhar nos olhos e dizer isso baixinho, com você nos meus braços. Vai ser o momento em que tudo vai fazer ainda mais sentido.<br><br>
+      <strong>Eu te amo imensamente. ❤️<br>Com amor, Seu "ame".</strong>
+    </p>
+  </div>
+</div>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var carta = document.getElementById("carta-container");
+  var modal = document.getElementById("cartaModal");
+  var closeBtn = document.querySelector(".close-btn");
+
+  carta.addEventListener("click", function() {
+    modal.style.display = "block";
+  });
+
+  closeBtn.addEventListener("click", function() {
+    modal.style.display = "none";
+  });
+
+  window.addEventListener("click", function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  });
+});
+</script>
+
+</body>
+</html>
